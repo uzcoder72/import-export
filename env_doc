@@ -1,0 +1,7 @@
+DEBUG=True
+SECRET_KEY='django-insecure-9_!in7+nfhun4di5%&kh5dbp43vm0bu$!zc%v=i-pcennn*#hk'
+NAME=ecommerce
+USER=postgres
+PASSWORD=123
+HOST=localhost
+PORT=5432
