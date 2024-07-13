@@ -1,48 +1,44 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import FormView, View
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from customer.forms import LoginForm, RegisterModelForm
-from django.contrib.auth.decorators import permission_required
 
 
-def login_page(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            user = authenticate(request, email=email, password=password)
-            if user:
-                login(request, user)
-                return redirect('customers')
-    else:
-        form = LoginForm()
+class LoginPageView(FormView):
+    template_name = 'auth/login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('customers')
 
-    return render(request, 'auth/login.html', {'form': form})
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = authenticate(self.request, email=email, password=password)
+        if user:
+            login(self.request, user)
+            return super().form_valid(form)
+        return self.form_invalid(form)
 
 
-def logout_page(request):
-    if request.method == 'GET   ':
+class LogoutPageView(View):
+    def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('customers')
-    return render(request, 'auth/logout.html')
 
 
-permission = 'customer.add_customer'
-@permission_required(permission,'/login/',raise_exception=True)
-def register_page(request):
-    if request.method == 'POST':
-        form = RegisterModelForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            password = form.cleaned_data['password']
+class RegisterPageView(PermissionRequiredMixin, FormView):
+    template_name = 'auth/register.html'
+    form_class = RegisterModelForm
+    success_url = reverse_lazy('customers')
+    permission_required = 'customer.add_customer'
+    raise_exception = True
 
-            user.set_password(password)
-            user.save()
-
-            login(request, user)
-            return redirect('customers')
-    else:
-        form = RegisterModelForm()
-
-    return render(request, 'auth/register.html', {'form': form})
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+        login(self.request, user)
+        return super().form_valid(form)
