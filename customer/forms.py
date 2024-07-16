@@ -60,4 +60,3 @@ class UserModelForm(forms.ModelForm):
         model = User
         exclude = ()
 
-

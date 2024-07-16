@@ -1,5 +1,4 @@
 from django.urls import path
-
 from customer.views.auth import LoginPageView, LogoutPageView, RegisterPageView
 from customer.views.customers import CustomerListView, AddCustomerView, EditCustomerView, DeleteCustomerView, ExportDataView
 

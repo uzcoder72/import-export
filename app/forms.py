@@ -17,3 +17,12 @@ class ProductModelForm(forms.ModelForm):
         model = Product
         # fields = ['name', 'description', 'price', 'rating', 'discount', 'quantity']
         exclude = ()
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(widget=forms.Textarea)
+    recipient = forms.EmailField()
+
+class SMSForm(forms.Form):
+    message = forms.CharField(max_length=160)
+    recipient = forms.CharField(max_length=150)
