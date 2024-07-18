@@ -1,5 +1,5 @@
 from django.urls import path
-from customer.views.auth import LoginPageView, LogoutPageView, RegisterPageView
+from customer.views.auth import LoginPageView, LogoutPageView, RegisterPageView,ActivateAccount
 from customer.views.customers import CustomerListView, AddCustomerView, EditCustomerView, DeleteCustomerView, ExportDataView
 
 urlpatterns = [
@@ -11,5 +11,6 @@ urlpatterns = [
     path('login-page/', LoginPageView.as_view(), name='login'),
     path('logout-page/', LogoutPageView.as_view(), name='logout'),
     path('register-page/', RegisterPageView.as_view(), name='register'),
-    path('export-data/', ExportDataView.as_view(), name='export_data')
+    path('export-data/', ExportDataView.as_view(), name='export_data'),
+    path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate')
 ]
