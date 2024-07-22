@@ -82,7 +82,7 @@
 
                                     <div class="z-index-1 position-relative"><a
                                             class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder"
-                                            href="../../../index.html">falcon</a>
+                                            href="/app/index">falcon</a>
                                         <p class="opacity-75 text-white">With the power of Falcon, you can now focus
                                             only on functionaries for your digital products, while leaving the UI design
                                             on us!</p>
@@ -110,39 +110,31 @@
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label class="form-label" for="card-name">Username</label>
-                                            <input class="form-control" type="text" name="username" autocomplete="on"
-                                                   id="card-name"/>
+                                            <input class="form-control" type="text" name="username" autocomplete="on" id="card-name"/>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="card-email">Email Address</label>
-                                            <input class="form-control" type="email" name="email" autocomplete="on"
-                                                   id="card-email"/>
+                                            <input class="form-control" type="email" name="email" autocomplete="on" id="card-email"/>
                                         </div>
                                         <div class="row gx-2">
                                             <div class="mb-3 col-sm-6">
                                                 <label class="form-label" for="card-password">Password</label>
-                                                <input class="form-control" type="password" name="password"
-                                                       autocomplete="on" id="card-password"/>
+                                                <input class="form-control" type="password" name="password" autocomplete="on" id="card-password"/>
                                             </div>
                                             <div class="mb-3 col-sm-6">
-                                                <label class="form-label" for="card-confirm-password">Confirm
-                                                    Password</label>
-                                                <input class="form-control" type="password" name="password2"
-                                                       autocomplete="on" id="card-confirm-password"/>
+                                                <label class="form-label" for="card-confirm-password">Confirm Password</label>
+                                                <input class="form-control" type="password" name="confirm_password" autocomplete="on" id="card-confirm-password"/>
                                             </div>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                   id="card-register-checkbox"/>
-                                            <label class="form-label" for="card-register-checkbox">I accept the <a
-                                                    href="#!">terms </a>and <a href="#!">privacy policy</a></label>
+                                            <input class="form-check-input" type="checkbox" id="card-register-checkbox"/>
+                                            <label class="form-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
                                         </div>
                                         <div class="mb-3">
-                                            <button class="btn btn-primary d-block w-100 mt-3" type="submit"
-                                                    name="submit">Register
-                                            </button>
+                                            <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
                                         </div>
                                     </form>
+
                                     <div class="position-relative mt-4">
                                         <hr class="bg-300"/>
                                         <div class="divider-content-center">or register with</div>

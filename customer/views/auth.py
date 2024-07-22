@@ -37,6 +37,8 @@ class LogoutPageView(View):
 
 
 
+User = get_user_model()
+
 class RegisterPageView(FormView):
     template_name = 'auth/register.html'
     form_class = RegisterModelForm
@@ -57,13 +59,20 @@ class RegisterPageView(FormView):
         )
 
         subject = 'Activate Your Account'
-        message = f'Hi {user.username}, please use the link below to activate your account:\n{activation_link}'
+        message = f'Hi {user.email}, please use the link below to activate your account:\n{activation_link}'
         send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email])
 
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        print("Form errors:", form.errors)  # Debug statement
+        return super().form_invalid(form)
 
-User = get_user_model()
+
+
+
+
+
 
 class ActivateAccount(View):
     def get(self, request, uidb64, token, *args, **kwargs):
