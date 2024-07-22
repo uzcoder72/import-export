@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from django.urls import reverse_lazy
 from pathlib import Path
 import environ
 import os
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'app',
     'customer.apps.CustomerConfig',
     'import_export',
-    'adminsortable2'
+    'adminsortable2',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -150,7 +151,36 @@ EMAIL_HOST_USER = 'your_email@example.com'
 EMAIL_HOST_PASSWORD = 'your_email_password'
 
 
-# Twilio settings
-TWILIO_ACCOUNT_SID = 'your_account_sid'
-TWILIO_AUTH_TOKEN = 'your_auth_token'
-TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
+
+
+# Add Facebook and Twitter backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+]
+
+# Google OAuth2 settings
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '558812766636-4l8skqr0f5c7knreskvm8sl8g3h2e6bk.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+# Facebook OAuth2 settings
+SOCIAL_AUTH_FACEBOOK_KEY = '1002367504807592'
+SOCIAL_AUTH_FACEBOOK_SECRET = '0558d78e7fb3ff7fad7cd95d1fb0e4a5'
+
+# Twitter OAuth settings
+SOCIAL_AUTH_TWITTER_KEY = 'xIg9NkYsqIt5XHXQJnwqZkIM8'
+SOCIAL_AUTH_TWITTER_SECRET = 'CBkfHyoMwnkvz7FnmU3k567dTbQrLP1rqeNHnuIlTMzeWseEGv'
+# BearerToken = 'AAAAAAAAAAAAAAAAAAAAAJLkuwEAAAAAfe0hjrwXlk%2Fh9Xy14yNV5XYg3Bg%3DD1Gd7Hfu09N4njvPXpqGR80PuppKLRnZHZ1X0D8LIPsjhYmXYZ'
+# ACCESS_TOKEN = '1590616736906330113-DaqGGRSVucZg8QUQ6K85Vi3usTpE1h'
+# ACCESS_TOKEN_SECRET = 'l8EVMVcsNWatRsz7l0PSjlmhx2SydKAqeITLZRhI90CWx'
+
+LOGIN_REDIRECT_URL = reverse_lazy('customers')
+LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+# Context processors to add social auth variables to the context
+TEMPLATES[0]['OPTIONS']['context_processors'].extend([
+    'social_django.context_processors.backends',
+    'social_django.context_processors.login_redirect',
+])
